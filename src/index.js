@@ -1,23 +1,15 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import store from './stores'
-import { Provider } from 'react-redux'
-import Intro from './components/presentation/Intro'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-	This is the entry point of the React app with Redux
-	already implemented. The Intro component is the 
-	visual content and most likely, you will want 
-	to remove it and replace with your own visual content.
-* * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*/
-
+import store from './stores';
+import routes from './routes';
 
 const app = (
-	<Provider store={store.configure(null)}>
-		<Intro />
-	</Provider>
-)
+  <Provider store={store.configure(null)}>
+    <BrowserRouter>{routes}</BrowserRouter>
+  </Provider>
+);
 
-
-ReactDOM.render(app, document.getElementById('root'))
+ReactDOM.render(app, document.getElementById('root'));
