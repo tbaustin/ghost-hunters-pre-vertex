@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { CreatePost } from '../view';
+import { Account } from '../containers';
 import actions from '../../actions';
 
 class Posts extends Component {
@@ -34,7 +35,12 @@ class Posts extends Component {
               ? null
               : posts.map(post => {
                   return (
-                    <div key={post.id} className="card" style={{ width: '20rem', margin: '7px 0px' }} className="col-sm-2 col-md-3 col-lg-4">
+                    <div
+                      key={post.id}
+                      className="card"
+                      style={{ width: '20rem', margin: '7px 0px' }}
+                      className="col-sm-2 col-md-3 col-lg-4"
+                    >
                       <img
                         className="card-img-top"
                         src="https://cdn.pixabay.com/photo/2016/01/19/14/25/octagonal-pavilion-1148883__340.jpg"
@@ -52,7 +58,11 @@ class Posts extends Component {
                 })}
           </div>
           <div className="col-sm-4">
-            <CreatePost onCreate={this.createPost.bind(this)} />
+            {this.props.user.currentUser == null ? (
+              <Account />
+            ) : (
+              <CreatePost onCreate={this.createPost.bind(this)} />
+            )}
           </div>
         </div>
       </div>
@@ -62,7 +72,8 @@ class Posts extends Component {
 
 const stateToProps = state => {
   return {
-    post: state.post
+    post: state.post,
+    user: state.user
   };
 };
 
