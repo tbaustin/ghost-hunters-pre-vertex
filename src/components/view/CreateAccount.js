@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import swal from 'sweetalert2/dist/sweetalert2.all.min.js';
 
 class CreateAccount extends Component {
   constructor() {
@@ -22,11 +23,45 @@ class CreateAccount extends Component {
 
   register(event) {
     event.preventDefault();
+    const { username, password } = this.state.account;
+    if (username.length == 0) {
+      swal({
+        title: 'Oops...',
+        text: 'You forgot your Username',
+        type: 'error'
+      });
+      return;
+    }
+    if (password.length == 0) {
+      swal({
+        title: 'Oops...',
+        text: 'You forgot your Password',
+        type: 'error'
+      });
+      return;
+    }
     this.props.onRegister(this.state.account);
   }
 
   login(event) {
     event.preventDefault();
+    const { username, password } = this.state.account;
+    if (username.length == 0) {
+      swal({
+        title: 'Oops...',
+        text: 'You forgot your Username',
+        type: 'error'
+      });
+      return;
+    }
+    if (password.length == 0) {
+      swal({
+        title: 'Oops...',
+        text: 'You forgot your Password',
+        type: 'error'
+      });
+      return;
+    }
     this.props.onLogin(this.state.account);
   }
 

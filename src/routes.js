@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Route, Switch } from 'react-router-dom';
 
-import { Home } from './components/layout';
+import { Home, PostLayout, ProfileLayout } from './components/layout';
 
 const Status = ({ code, children }) => {
   return (
@@ -28,6 +28,8 @@ const NotFound = () => {
 const routes = (
   <div>
     <Switch>
+      <Route path="/profile/:id" component={ProfileLayout} />
+      <Route path="/post/:id" component={PostLayout} />
       <Route exact path="/" component={Home} />
       <Route component={NotFound} />
     </Switch>

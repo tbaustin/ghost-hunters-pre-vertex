@@ -28,6 +28,12 @@ export default {
     };
   },
 
+  logoutUser: () => {
+    return dispatch => {
+      return dispatch(TurboClient.logout(constants.USER_LOGGED_OUT));
+    };
+  },
+
   currentUser: () => {
     return dispatch => {
       return dispatch(TurboClient.currentUser(constants.CURRENT_USER_RECEIVED));

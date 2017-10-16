@@ -20,7 +20,7 @@
     "file-loader": "latest",
     "firebase": "latest",
     "moment": "latest",
-    "react": "latest",
+    "react": "^16.0.0",
     "react-bootstrap": "latest",
     "react-dom": "latest",
     "react-dropzone": "latest",
@@ -31,6 +31,7 @@
     "redux-thunk": "latest",
     "stripe": "latest",
     "superagent": "latest",
+    "sweetalert2": "^6.10.3",
     "turbo360": "latest",
     "webpack": "latest"
   },

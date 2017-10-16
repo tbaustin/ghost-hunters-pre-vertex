@@ -21,6 +21,11 @@ export default (state = initialState, action) => {
       let array = newState.all ? Object.assign([], newState.all) : [];
       array.unshift(action.data);
       newState['all'] = array;
+      newState['currentUser'] = action.data;
+      return newState;
+
+    case constants.USER_LOGGED_OUT:
+      newState['currentUser'] = action.data;
       return newState;
 
     default:

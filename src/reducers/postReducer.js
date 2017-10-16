@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
       });
 
       newState.all = action.data.sort((a, b) => {
-        return new Date(a.timestamp) - new Date(b.timestamp);
+        return new Date(b.timestamp) - new Date(a.timestamp);
       });
 
       return newState;
