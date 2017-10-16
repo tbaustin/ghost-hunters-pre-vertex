@@ -39,10 +39,11 @@ class Posts extends Component {
       return;
     }
 
-    params['profile'] = currentUser;
+    const updated = Object.assign({}, params, { profile: currentUser });
+    console.log(updated);
 
     this.props
-      .createPost(params)
+      .createPost(updated)
       .then(data => {
         swal({
           title: 'Post Created',
@@ -67,12 +68,7 @@ class Posts extends Component {
               ? null
               : posts.map(post => {
                   return (
-                    <div
-                      key={post.id}
-                      className="card"
-                      style={{ width: '20rem', paddingBottom: '8px' }}
-                      className="col-sm-2 col-md-3 col-lg-4"
-                    >
+                    <div key={post.id} className="card" style={{ width: '20rem', paddingBottom: '8px' }} className="col-sm-2 col-md-3 col-lg-4">
                       <img
                         className="card-img-top"
                         src="https://cdn.pixabay.com/photo/2016/01/19/14/25/octagonal-pavilion-1148883__340.jpg"
