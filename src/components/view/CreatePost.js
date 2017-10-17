@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert2/dist/sweetalert2.all.min.js';
+import Dropzone from 'react-dropzone';
+
+import { TurboClient } from '../../utils';
 
 class CreatePost extends Component {
   constructor() {
@@ -7,7 +10,9 @@ class CreatePost extends Component {
     this.state = {
       post: {
         title: '',
-        text: ''
+        text: '',
+        image:
+          'https://lh3.googleusercontent.com/jt6x5sv4Q06g2LB_hnSeEqFWfBt2OvIqNKeNBBJa-lzEvWMNy886eiXVPcjWK-zLIs6m9Tj9VZzjcDUuVVANQaZXhA'
       }
     };
   }
@@ -20,6 +25,27 @@ class CreatePost extends Component {
     this.setState({
       post: updated
     });
+  }
+
+  imageUpload(files) {
+    let updated = Object.assign({}, this.state.post);
+    const file = files[0];
+
+    TurboClient.uploadFile(file)
+      .then(data => {
+        updated['image'] = data.result.url;
+        this.setState({
+          post: updated
+        });
+        swal({
+          title: 'Image Uploaded',
+          html: `<img src='${data.result.url}=s100' />`,
+          type: 'success'
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   createPost(event) {
@@ -67,9 +93,25 @@ class CreatePost extends Component {
             placeholder="Text"
           />
         </div>
-        <button onClick={this.createPost.bind(this)} className="btn btn-primary">
-          Submit
-        </button>
+        <div className="row">
+          <div className="col-sm-6">
+            <Dropzone className="btn btn-success" onDrop={this.imageUpload.bind(this)}>
+              Upload Image
+            </Dropzone>
+          </div>
+          <div className="col-sm-6">
+            <button onClick={this.createPost.bind(this)} className="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </div>
+        {this.state.post.image.length == 0 ? null : (
+          <div className="row">
+            <div className="col-sm-12">
+              <img src={`${this.state.post.image}=s150`} style={{ paddingTop: '8px' }} />
+            </div>
+          </div>
+        )}
       </div>
     );
   }

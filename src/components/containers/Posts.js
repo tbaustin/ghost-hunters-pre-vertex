@@ -31,7 +31,6 @@ class Posts extends Component {
     }
 
     const updated = Object.assign({}, params, { profile: currentUser });
-    console.log(updated);
 
     this.props
       .createPost(updated)
@@ -41,7 +40,6 @@ class Posts extends Component {
           text: `Title: ${data.title}`,
           type: 'success'
         });
-        console.log(data);
       })
       .catch(err => console.log(err));
   }
@@ -65,11 +63,7 @@ class Posts extends Component {
                       style={{ width: '20rem', paddingBottom: '8px' }}
                       className="col-sm-2 col-md-3 col-lg-4"
                     >
-                      <img
-                        className="card-img-top"
-                        src="https://cdn.pixabay.com/photo/2016/01/19/14/25/octagonal-pavilion-1148883__340.jpg"
-                        alt="Card image cap"
-                      />
+                      <img className="card-img-top" src={`${post.image}`} alt="Card image cap" />
                       <div
                         className="card-body"
                         style={{
