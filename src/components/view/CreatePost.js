@@ -48,6 +48,11 @@ class CreatePost extends Component {
       });
   }
 
+  videoUpload(files) {
+    let updated = Object.assign({}, this.state.post);
+    const file = files[0];
+  }
+
   createPost(event) {
     event.preventDefault();
     const { title, text } = this.state.post;
@@ -100,9 +105,9 @@ class CreatePost extends Component {
             </Dropzone>
           </div>
           <div className="col-sm-6">
-            <button onClick={this.createPost.bind(this)} className="btn btn-primary">
-              Submit
-            </button>
+            <Dropzone className="btn btn-warning" onDrop={this.videoUpload.bind(this)}>
+              Upload Video
+            </Dropzone>
           </div>
         </div>
         {this.state.post.image.length == 0 ? null : (
@@ -112,6 +117,13 @@ class CreatePost extends Component {
             </div>
           </div>
         )}
+        <div className="row">
+          <div className="col-sm-6" style={{ paddingTop: '8px' }}>
+            <button onClick={this.createPost.bind(this)} className="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

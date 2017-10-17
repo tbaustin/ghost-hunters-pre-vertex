@@ -53,37 +53,27 @@ class Posts extends Component {
         <h1>Posts</h1>
         <div className="row">
           <div className="col-sm-8">
-            {posts == null
-              ? null
-              : posts.map(post => {
-                  return (
-                    <div
-                      key={post.id}
-                      className="card"
-                      style={{ width: '20rem', paddingBottom: '8px' }}
-                      className="col-sm-2 col-md-3 col-lg-4"
-                    >
-                      <img className="card-img-top" src={`${post.image}`} alt="Card image cap" />
-                      <div
-                        className="card-body"
-                        style={{
-                          background: '#f3f3f3',
-                          padding: '8px',
-                          borderRadius: '0px 0px 8px 8px'
-                        }}
-                      >
-                        <h4 className="card-title">{post.title.substr(0, 15)}...</h4>
-                        <span>
-                          Created by: <strong>{post.profile.username}</strong>
-                        </span>
-                        <p className="card-text">{`${post.text.substr(0, 20)}...`}</p>
-                        <Link to={`/post/${post.id}`} className="btn btn-info">
-                          More
-                        </Link>
+            <div className="card-deck">
+              {posts == null
+                ? null
+                : posts.map(post => {
+                    return (
+                      <div className="card text-white bg-dark mb-3">
+                        <img className="card-img-top" src="..." alt="Card image cap" />
+                        <div className="card-body">
+                          <h4 className="card-title">Card title</h4>
+                          <p className="card-text">
+                            This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.
+                          </p>
+                        </div>
+                        <div className="card-footer">
+                          <small className="text-muted">Last updated 3 mins ago</small>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+            </div>
           </div>
           <div className="col-sm-4">
             <Account />
