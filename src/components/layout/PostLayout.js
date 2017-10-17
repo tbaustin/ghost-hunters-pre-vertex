@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
+import { Post } from '../containers';
+
 class PostLayout extends Component {
   render() {
     return (
       <div>
-        <span>PostLayout</span>
+        <Post {...this.props} />
       </div>
     );
   }

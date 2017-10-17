@@ -160,11 +160,11 @@ const uploadFile = file => {
 };
 
 const createPost = (params, actionType) => {
-  return postRequest('post', params, actionType);
+  return postRequest('record', params, actionType);
 };
 
 const fetchPosts = (params, actionType) => {
-  return getRequest('post', params, actionType);
+  return getRequest('record', params, actionType);
 };
 
 export default {

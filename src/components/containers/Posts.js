@@ -17,15 +17,6 @@ class Posts extends Component {
           console.log(err);
         });
     }
-
-    if (this.props.user.currentUser == null) {
-      this.props
-        .currentUser()
-        .then(() => {})
-        .catch(err => {
-          console.log(err);
-        });
-    }
   }
 
   createPost(params) {
@@ -68,7 +59,12 @@ class Posts extends Component {
               ? null
               : posts.map(post => {
                   return (
-                    <div key={post.id} className="card" style={{ width: '20rem', paddingBottom: '8px' }} className="col-sm-2 col-md-3 col-lg-4">
+                    <div
+                      key={post.id}
+                      className="card"
+                      style={{ width: '20rem', paddingBottom: '8px' }}
+                      className="col-sm-2 col-md-3 col-lg-4"
+                    >
                       <img
                         className="card-img-top"
                         src="https://cdn.pixabay.com/photo/2016/01/19/14/25/octagonal-pavilion-1148883__340.jpg"
@@ -84,7 +80,7 @@ class Posts extends Component {
                       >
                         <h4 className="card-title">{post.title.substr(0, 15)}...</h4>
                         <span>
-                          Created by: <strong>{post.user.username}</strong>
+                          Created by: <strong>{post.profile.username}</strong>
                         </span>
                         <p className="card-text">{`${post.text.substr(0, 20)}...`}</p>
                         <Link to={`/post/${post.id}`} className="btn btn-info">
@@ -120,8 +116,7 @@ const stateToProps = state => {
 const dispatchToProps = dispatch => {
   return {
     createPost: params => dispatch(actions.createPost(params)),
-    fetchPosts: params => dispatch(actions.fetchPosts(params)),
-    currentUser: () => dispatch(actions.currentUser())
+    fetchPosts: params => dispatch(actions.fetchPosts(params))
   };
 };
 

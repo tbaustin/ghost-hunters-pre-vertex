@@ -12,9 +12,7 @@ class Account extends Component {
       this.props
         .currentUser()
         .then(() => {})
-        .catch(err => {
-          console.log(err);
-        });
+        .catch(() => {});
     }
   }
 
@@ -24,7 +22,7 @@ class Account extends Component {
       .then(data => {
         swal({
           title: `${data.username}`,
-          text: 'Thank you for joining :)',
+          text: 'Thank you for joining',
           type: 'success'
         });
       })
@@ -54,7 +52,7 @@ class Account extends Component {
       .then(data => {
         swal({
           title: 'User Logged Out',
-          text: 'We hope to see you again :)',
+          text: 'We hope to see you again',
           type: 'success'
         });
       })
