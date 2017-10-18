@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { CreatePost } from '../view';
 import { Account } from '../containers';
 import actions from '../../actions';
+import { DateUtils } from '../../utils';
 
 class Posts extends Component {
   componentDidMount() {
@@ -58,17 +59,24 @@ class Posts extends Component {
                 ? null
                 : posts.map(post => {
                     return (
-                      <div className="card text-white bg-dark mb-3">
-                        <img className="card-img-top" src="..." alt="Card image cap" />
-                        <div className="card-body">
-                          <h4 className="card-title">Card title</h4>
-                          <p className="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                          </p>
+                      <div key={post.id} className="card text-white bg-dark mb-3" style={{ maxWidth: '20rem' }}>
+                        <div className="card-header">
+                          <Link to={`/post/${post.id}`}>
+                            <img className="card-img-top" src={post.image} alt="Card image cap" />
+                          </Link>
+                        </div>
+                        <div className="card-body text-white">
+                          <h4 className="card-title" style={{ color: 'white' }}>{`${post.title.substr(0, 17)}...`}</h4>
+                          <p className="card-text">{`${post.text.substr(0, 30)}...`}</p>
+                          <span>
+                            ~{' '}
+                            <Link to={`/profile/${post.profile.id}`} style={{ color: 'white' }}>
+                              <strong>{post.profile.username}</strong>
+                            </Link>
+                          </span>
                         </div>
                         <div className="card-footer">
-                          <small className="text-muted">Last updated 3 mins ago</small>
+                          <small className="text-muted">{DateUtils.relativeTime(post.timestamp)}</small>
                         </div>
                       </div>
                     );
