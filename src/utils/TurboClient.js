@@ -41,6 +41,26 @@ const getRequest = (resource, params, actionType) => {
       });
 };
 
+const getOne = (resource, id, actionType) => {
+  return dispatch =>
+    turbo({ site_id: APP_ID })
+      .fetchOne(resource, id)
+      .then(data => {
+        if (actionType != null) {
+          dispatch({
+            type: actionType,
+            params: id, // can be null
+            data: data
+          });
+        }
+
+        return data;
+      })
+      .catch(err => {
+        throw err;
+      });
+};
+
 const putRequest = (resource, entity, params, actionType) => {
   return dispatch =>
     turbo({ site_id: APP_ID })
@@ -178,5 +198,6 @@ export default {
   currentUser: currentUser,
   uploadFile: uploadFile,
   createPost: createPost,
-  fetchPosts: fetchPosts
+  fetchPosts: fetchPosts,
+  getOne: getOne
 };

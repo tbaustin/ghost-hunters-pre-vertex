@@ -11,8 +11,8 @@ class CreatePost extends Component {
       post: {
         title: '',
         text: '',
-        image:
-          'https://lh3.googleusercontent.com/jt6x5sv4Q06g2LB_hnSeEqFWfBt2OvIqNKeNBBJa-lzEvWMNy886eiXVPcjWK-zLIs6m9Tj9VZzjcDUuVVANQaZXhA'
+        image: 'https://lh3.googleusercontent.com/jt6x5sv4Q06g2LB_hnSeEqFWfBt2OvIqNKeNBBJa-lzEvWMNy886eiXVPcjWK-zLIs6m9Tj9VZzjcDUuVVANQaZXhA',
+        video: null
       }
     };
   }
@@ -30,6 +30,15 @@ class CreatePost extends Component {
   imageUpload(files) {
     let updated = Object.assign({}, this.state.post);
     const file = files[0];
+    const imageType = new RegExp(/^image[/](?:jpe?g|gif|png)$/);
+    if (file.type.match(imageType) == null) {
+      swal({
+        title: 'Unacceptable Image Type',
+        text: 'Please only use .png .jpg .gif .jpeg',
+        type: 'error'
+      });
+      return;
+    }
 
     TurboClient.uploadFile(file)
       .then(data => {
@@ -51,6 +60,33 @@ class CreatePost extends Component {
   videoUpload(files) {
     let updated = Object.assign({}, this.state.post);
     const file = files[0];
+    const videoType = new RegExp(/^video\/(?:mp4|webm|ogg)$/);
+    if (file.type.match(videoType == null)) {
+      swal({
+        title: 'Unacceptable Video Type',
+        text: 'Please only use .webm .ogg .mp4',
+        type: 'error'
+      });
+      return;
+    }
+
+    updated['videoType'] = file.type;
+
+    TurboClient.uploadFile(file)
+      .then(data => {
+        updated['video'] = data.result.url;
+        this.setState({
+          post: updated
+        });
+        swal({
+          title: 'Video Uploaded',
+          text: `${data.result.name}`,
+          type: 'success'
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   createPost(event) {
@@ -80,23 +116,11 @@ class CreatePost extends Component {
       <div>
         <div className="form-group">
           <label htmlFor="title">Title</label>
-          <input
-            onChange={this.updatePost.bind(this, 'title')}
-            className="form-control"
-            id="title"
-            type="text"
-            placeholder="Title"
-          />
+          <input onChange={this.updatePost.bind(this, 'title')} className="form-control" id="title" type="text" placeholder="Title" />
         </div>
         <div className="form-group">
           <label htmlFor="text">Text</label>
-          <input
-            onChange={this.updatePost.bind(this, 'text')}
-            className="form-control"
-            id="text"
-            type="text"
-            placeholder="Text"
-          />
+          <input onChange={this.updatePost.bind(this, 'text')} className="form-control" id="text" type="text" placeholder="Text" />
         </div>
         <div className="row">
           <div className="col-sm-6">
@@ -123,6 +147,11 @@ class CreatePost extends Component {
               Submit
             </button>
           </div>
+          {this.state.post.video == null ? null : (
+            <div className="col-sm-6">
+              <h3 style={{ color: 'red', border: '1px dashed red', borderRadius: '8px' }}>Video Uploaded</h3>
+            </div>
+          )}
         </div>
       </div>
     );

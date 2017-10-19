@@ -50,5 +50,11 @@ export default {
     return dispatch => {
       return dispatch(TurboClient.fetchPosts(params, constants.FETCH_POSTS));
     };
+  },
+
+  getRecord: id => {
+    return dispatch => {
+      return dispatch(TurboClient.getOne('record', id, constants.FETCH_POST));
+    };
   }
 };

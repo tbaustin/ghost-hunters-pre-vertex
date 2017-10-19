@@ -51,10 +51,9 @@ class Posts extends Component {
     const { currentUser } = this.props.user;
     return (
       <div>
-        <h1>Posts</h1>
         <div className="row">
           <div className="col-sm-8">
-            <div className="card-deck">
+            <div className="card-columns">
               {posts == null
                 ? null
                 : posts.map(post => {

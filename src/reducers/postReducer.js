@@ -24,6 +24,10 @@ export default (state = initialState, action) => {
 
       return newState;
 
+    case constants.FETCH_POST:
+      newState[action.data.id] = action.data;
+      return newState;
+
     default:
       return state;
   }
