@@ -33,7 +33,7 @@
     "stripe": "latest",
     "superagent": "latest",
     "sweetalert2": "^6.10.3",
-    "turbo360": "latest",
+    "turbo360": "^1.4.69",
     "webpack": "latest"
   },
   "devDependencies": {

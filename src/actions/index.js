@@ -46,6 +46,12 @@ export default {
     };
   },
 
+  updateProfile: (currentUser, params) => {
+    return dispatch => {
+      return dispatch(TurboClient.putRequest('user', currentUser, params, constants.UPDATE_PROFILE));
+    };
+  },
+
   createPost: params => {
     return dispatch => {
       return dispatch(TurboClient.createPost(params, constants.POST_CREATED));

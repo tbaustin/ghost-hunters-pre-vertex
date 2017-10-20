@@ -10,6 +10,10 @@ export default (state = initialState, action) => {
       newState[action.data.id] = action.data;
       return newState;
 
+    case constants.UPDATE_PROFILE:
+      newState[action.data.id] = action.data;
+      return newState;
+
     default:
       return newState;
   }

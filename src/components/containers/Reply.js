@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import swal from 'sweetalert2/dist/sweetalert2.all.min.js';
+import { Link } from 'react-router-dom';
 
 import { CreateReply } from '../view';
 import actions from '../../actions';
+import { DateUtils } from '../../utils';
 
 class Reply extends Component {
   componentDidMount() {
@@ -45,21 +47,31 @@ class Reply extends Component {
 
   render() {
     const replies = this.props.reply[this.props.postId];
-    console.log(typeof replies);
+
     return (
       <div>
         <div className="row">
           <div className="col-sm-12">
             <ul className="list-group">
-              {replies == null
-                ? null
-                : replies.map(reply => {
+              {replies == null ? (
+                <div>No Replies</div>
+              ) : (
+                replies.map(reply => {
+                  return (
                     <li key={reply.id} className="list-group-item list-group-item-secondary">
-                      {reply.text}
-                      <br />
-                      {reply.user.username}
-                    </li>;
-                  })}
+                      <div className="row">
+                        <div className="col-auto mr-auto">
+                          {' '}
+                          {reply.text}
+                          <br />
+                          ~ <Link to={`profile/${reply.user.id}`}>{reply.user.username}</Link>
+                        </div>
+                        <div className="col-auto text-muted">{DateUtils.relativeTime(reply.timestamp)}</div>
+                      </div>
+                    </li>
+                  );
+                })
+              )}
             </ul>
           </div>
         </div>

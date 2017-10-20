@@ -28,7 +28,7 @@ class Post extends Component {
         <div className="jumbotron">
           <h1 className="display-3">{post.title}</h1>
           <div className="row" style={{ marginBottom: '25px' }}>
-            <img className="img-fluid mx-auto" src={`${post.image}=s100`} />
+            <img className="img-fluid mx-auto" src={`${post.image}`} style={{ maxHeight: '400px' }} />
           </div>
           <p className="lead">{post.text}</p>
           <hr className="my-4" />
@@ -36,8 +36,7 @@ class Post extends Component {
             <div className="row justify-content-center">
               <div className="col-8">
                 <div className="lead" style={{ marginBottom: '25px' }}>
-                  <div class="embed-responsive embed-responsive-16by9">
-                    {console.log(post.video)}
+                  <div className="embed-responsive embed-responsive-16by9">
                     <video style={{ background: 'black' }} width="800" controls loop tabIndex="0">
                       <source src={post.video} type={post.videoType} />
                       Your browser does not support HTML5 video.
@@ -51,7 +50,7 @@ class Post extends Component {
             <Link to={`/profile/${post.profile.id}`}>
               <button className="btn btn-secondary btn-lg">{post.profile.username}</button>
             </Link>
-            <p>{DateUtils.relativeTime(post.timestamp)}</p>
+            <p style={{ marginTop: '10px' }}>{DateUtils.relativeTime(post.timestamp)}</p>
           </div>
         </div>
         <Reply postId={post.id} />
