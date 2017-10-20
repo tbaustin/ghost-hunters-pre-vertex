@@ -68,16 +68,25 @@ class Account extends Component {
         {currentUser == null ? (
           <CreateAccount onRegister={this.register.bind(this)} onLogin={this.login.bind(this)} />
         ) : (
-          <div className="row">
-            <div className="col-md-8">
-              <h3>
-                <Link to={`/profile/${currentUser.id}`}>{currentUser.username}</Link>
-              </h3>
+          <div>
+            <div className="row">
+              <div className="col-md-8">
+                <h3>
+                  <Link to={`/profile/${currentUser.id}`}>{currentUser.username}</Link>
+                </h3>
+              </div>
             </div>
-            <div className="col-md-4">
-              <button onClick={this.logout.bind(this)} className="btn btn-danger">
-                Logout
-              </button>
+            <div className="row">
+              <div className="col-md-4">
+                <Link to={`profile/${currentUser.id}`} className="btn btn-info btn-sm">
+                  Profile
+                </Link>
+              </div>
+              <div className="col-md-4">
+                <button onClick={this.logout.bind(this)} className="btn btn-danger btn-sm">
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
         )}

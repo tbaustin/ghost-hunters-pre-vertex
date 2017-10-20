@@ -40,6 +40,12 @@ export default {
     };
   },
 
+  getProfile: id => {
+    return dispatch => {
+      return dispatch(TurboClient.getOne('user', id, constants.GET_PROFILE));
+    };
+  },
+
   createPost: params => {
     return dispatch => {
       return dispatch(TurboClient.createPost(params, constants.POST_CREATED));
@@ -55,6 +61,18 @@ export default {
   getRecord: id => {
     return dispatch => {
       return dispatch(TurboClient.getOne('record', id, constants.FETCH_POST));
+    };
+  },
+
+  createReply: params => {
+    return dispatch => {
+      return dispatch(TurboClient.postRequest('reply', params, constants.REPLY_CREATED));
+    };
+  },
+
+  getReplies: params => {
+    return dispatch => {
+      return dispatch(TurboClient.getRequest('reply', params, constants.GET_REPLIES));
     };
   }
 };

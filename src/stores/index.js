@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { userReducer, postReducer } from '../reducers';
+import { userReducer, postReducer, profileReducer, replyReducer } from '../reducers';
 
 var store;
 export default {
@@ -9,7 +9,9 @@ export default {
 
     const reducers = combineReducers({
       user: userReducer,
-      post: postReducer
+      post: postReducer,
+      profile: profileReducer,
+      reply: replyReducer
     });
 
     if (initialState) {

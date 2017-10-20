@@ -83,11 +83,23 @@ class Posts extends Component {
             </div>
           </div>
           <div className="col-sm-4">
-            <Account />
+            <div className="row">
+              <div className="col-sm-12">
+                <Account />
+              </div>
+            </div>
             {currentUser == null ? null : (
-              <div>
-                <h3>Create a Post</h3>
-                <CreatePost onCreate={this.createPost.bind(this)} />
+              <div className="row" style={{ marginTop: '25px' }}>
+                <div className="row">
+                  <div className="col-sm-12">
+                    <h3>Create a Post</h3>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-sm-12">
+                    <CreatePost onCreate={this.createPost.bind(this)} />
+                  </div>
+                </div>
               </div>
             )}
           </div>
