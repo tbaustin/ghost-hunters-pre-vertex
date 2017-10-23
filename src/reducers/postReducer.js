@@ -5,28 +5,38 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  let newState = Object.assign({}, state);
-
   switch (action.type) {
     case constants.POST_CREATED:
-      newState[action.data.id] = action.data;
-      newState.all.unshift(action.data);
+      return {
+        ...state,
+        all: state.all.concat(action.data),
+        [action.data.id]: action.data
+      };
+
+    case constants.RECORD_UPDATED:
+      return {
+        ...state,
+        [action.data.id]: action.data,
+        all: all.map(item => (item.id === action.data.id ? action.data : item))
+      };
+
+    case constants.RECORD_DELETED:
+      const newState = {
+        ...state,
+        all: state.all.filter(item => item.id !== action.data.id)
+      };
+      delete newState[action.data.id];
+
       return newState;
 
     case constants.FETCH_POSTS:
-      action.data.map(post => {
-        newState[post.id] = post;
-      });
-
-      newState.all = action.data.sort((a, b) => {
+      const sortedData = action.data.sort((a, b) => {
         return new Date(b.timestamp) - new Date(a.timestamp);
       });
-
-      return newState;
+      return { ...state, all: sortedData };
 
     case constants.FETCH_POST:
-      newState[action.data.id] = action.data;
-      return newState;
+      return { ...state, [action.data.id]: action.data };
 
     default:
       return state;

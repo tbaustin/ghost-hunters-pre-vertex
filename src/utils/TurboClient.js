@@ -88,7 +88,7 @@ const deleteRequest = (resource, entity, actionType) => {
         if (actionType != null) {
           dispatch({
             type: actionType,
-            data: data
+            data: data,
           });
         }
 

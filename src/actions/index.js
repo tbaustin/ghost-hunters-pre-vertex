@@ -70,6 +70,18 @@ export default {
     };
   },
 
+  updateRecord: (entity, params) => {
+    return dispatch => {
+      return dispatch(TurboClient.putRequest('record', entity, params, constants.RECORD_UPDATED));
+    };
+  },
+
+  deleteRecord: entity => {
+    return dispatch => {
+      return dispatch(TurboClient.deleteRequest('record', entity, constants.RECORD_DELETED));
+    };
+  },
+
   createReply: params => {
     return dispatch => {
       return dispatch(TurboClient.postRequest('reply', params, constants.REPLY_CREATED));

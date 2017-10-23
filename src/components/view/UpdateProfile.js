@@ -62,6 +62,7 @@ class UpdateProfile extends Component {
 
   render() {
     const { profile } = this.state;
+    const { currentProfile } = this.props;
     return (
       <div>
         <div className="row justify-content-center" style={{ marginBottom: '100px' }}>
@@ -89,7 +90,7 @@ class UpdateProfile extends Component {
                     type="text"
                     className="form-control"
                     id="firstName"
-                    placeholder="First Name"
+                    defaultValue={currentProfile.firstName || 'First Name'}
                   />
                 </div>
                 <div className="form-group col-md-6">
@@ -99,7 +100,7 @@ class UpdateProfile extends Component {
                     type="text"
                     className="form-control"
                     id="lastName"
-                    placeholder="Last Name"
+                    defaultValue={currentProfile.lastName || 'Last Name'}
                   />
                 </div>
               </div>
@@ -112,14 +113,20 @@ class UpdateProfile extends Component {
                     className="form-control"
                     id="email"
                     aria-describedby="emailHelp"
-                    placeholder="Enter email"
+                    defaultValue={currentProfile.Email || 'Email'}
                   />
                 </div>
               </div>
               <div className="row">
                 <div className="form-group col-sm-12">
                   <label htmlFor="bio">Biography</label>
-                  <textarea onChange={this.updateProfile.bind(this, 'bio')} className="form-control" id="bio" rows="4" />
+                  <textarea
+                    onChange={this.updateProfile.bind(this, 'bio')}
+                    defaultValue={currentProfile.bio || 'Biography'}
+                    className="form-control"
+                    id="bio"
+                    rows="4"
+                  />
                 </div>
               </div>
               <div className="row">
@@ -128,7 +135,13 @@ class UpdateProfile extends Component {
                     Upload Image
                   </Dropzone>
                 </div>
-                <div className="col-sm-4 ml-auto">{profile.image != null ? <img src={`${profile.image}=s150`} /> : null}</div>
+                <div className="col-sm-4 ml-auto">
+                  {profile.image != null ? (
+                    <img src={`${profile.image}=s150`} />
+                  ) : currentProfile.image != null ? (
+                    <img src={`${currentProfile.iamge}=s150`} />
+                  ) : null}
+                </div>
               </div>
               <div className="row" style={{ marginTop: '15px' }}>
                 <div className="form-group col-sm-4">
@@ -136,7 +149,13 @@ class UpdateProfile extends Component {
                     Upload Banner Image
                   </Dropzone>
                 </div>
-                <div className="col-sm-6 ml-auto">{profile.bannerImage != null ? <img src={`${profile.bannerImage}=s200`} /> : null}</div>
+                <div className="col-sm-6 ml-auto">
+                  {profile.bannerImage != null ? (
+                    <img src={`${profile.bannerImage}=s200`} />
+                  ) : currentProfile.bannerImage != null ? (
+                    <img src={`${currentProfile.bannerImage}=s200`} />
+                  ) : null}
+                </div>
               </div>
               <hr className="my-4" />
               <button onClick={this.createUpdatedProfile.bind(this)} className="btn btn-success" style={{ marginBottom: '100px' }}>
