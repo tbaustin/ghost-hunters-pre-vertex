@@ -18,6 +18,14 @@ class Posts extends Component {
           console.log(err);
         });
     }
+    if (this.props.reply.all == null) {
+      this.props
+        .getReplies({})
+        .then(() => {})
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 
   createPost(params) {
@@ -47,7 +55,6 @@ class Posts extends Component {
 
   render() {
     const posts = this.props.post.all;
-    console.log(posts);
     const { currentUser } = this.props.user;
     return (
       <div>
@@ -58,24 +65,34 @@ class Posts extends Component {
                 ? null
                 : posts.map(post => {
                     return (
-                      <div key={post.id} className="card text-white bg-dark mb-3" style={{ maxWidth: '20rem' }}>
+                      <div
+                        key={post.id}
+                        className="card text-white bg-dark mb-3"
+                        style={{ maxWidth: '20rem' }}
+                      >
                         <div className="card-header">
                           <Link to={`/post/${post.id}`}>
                             <img className="card-img-top" src={post.image} alt="Card image cap" />
                           </Link>
                         </div>
                         <div className="card-body text-white">
-                          <h4 className="card-title" style={{ color: 'white' }}>{`${post.title.substr(0, 17)}...`}</h4>
-                          <p className="card-text">{`${post.text.substr(0, 30)}...`}</p>
+                          <h4 className="card-title" style={{ color: 'white' }}>
+                            {post.title.length > 17 ? post.title.substr(0, 17) + '...' : post.title}
+                          </h4>
+                          <p className="card-text">
+                            {post.text.length > 30 ? post.text.substr(0, 30) + '...' : post.text}
+                          </p>
                           <span>
                             ~{' '}
                             <Link to={`/profile/${post.profile.id}`} style={{ color: 'white' }}>
-                              <strong>{post.profile.username}</strong>
+                              <strong>{post.profile.username || 'Anonymous'}</strong>
                             </Link>
                           </span>
                         </div>
                         <div className="card-footer">
-                          <small className="text-muted">{DateUtils.relativeTime(post.timestamp)}</small>
+                          <small className="text-muted">
+                            {DateUtils.relativeTime(post.timestamp)}
+                          </small>
                         </div>
                       </div>
                     );
@@ -112,14 +129,16 @@ class Posts extends Component {
 const stateToProps = state => {
   return {
     post: state.post,
-    user: state.user
+    user: state.user,
+    reply: state.reply
   };
 };
 
 const dispatchToProps = dispatch => {
   return {
     createPost: params => dispatch(actions.createPost(params)),
-    fetchPosts: params => dispatch(actions.fetchPosts(params))
+    fetchPosts: params => dispatch(actions.fetchPosts(params)),
+    getReplies: params => dispatch(actions.getReplies(params))
   };
 };
 

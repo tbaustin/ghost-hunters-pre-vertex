@@ -1,7 +1,7 @@
 import constants from '../constants';
 
 var initialState = {
-  all: null,
+  all: [],
   currentUser: null // signed in user
 };
 
@@ -27,6 +27,13 @@ export default (state = initialState, action) => {
     case constants.USER_LOGGED_OUT:
       newState['currentUser'] = action.data;
       return newState;
+
+    case constants.USER_DELETED:
+      return {
+        ...state,
+        currentUser: action.data,
+        all: state.all.filter(user => user !== action.data.id)
+      };
 
     default:
       return state;

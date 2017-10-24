@@ -48,7 +48,15 @@ export default {
 
   updateProfile: (currentUser, params) => {
     return dispatch => {
-      return dispatch(TurboClient.putRequest('user', currentUser, params, constants.UPDATE_PROFILE));
+      return dispatch(
+        TurboClient.putRequest('user', currentUser, params, constants.UPDATE_PROFILE)
+      );
+    };
+  },
+
+  deleteProfile: entity => {
+    return dispatch => {
+      return dispatch(TurboClient.deleteRequest('user', entity, constants.USER_DELETED));
     };
   },
 
@@ -85,6 +93,18 @@ export default {
   createReply: params => {
     return dispatch => {
       return dispatch(TurboClient.postRequest('reply', params, constants.REPLY_CREATED));
+    };
+  },
+
+  deleteReply: entity => {
+    return dispatch => {
+      return dispatch(TurboClient.deleteRequest('reply', entity, constants.REPLY_DELETED));
+    };
+  },
+
+  updateReply: (entity, params) => {
+    return dispatch => {
+      return dispatch(TurboClient.putRequest('reply', entity, params, constants.REPLY_UPDATED));
     };
   },
 

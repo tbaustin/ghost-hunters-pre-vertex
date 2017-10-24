@@ -11,8 +11,12 @@ class Account extends Component {
     if (this.props.user.currentUser == null) {
       this.props
         .currentUser()
-        .then(() => {})
-        .catch(() => {});
+        .then(data => {
+          return null;
+        })
+        .catch(err => {
+          return err;
+        });
     }
   }
 

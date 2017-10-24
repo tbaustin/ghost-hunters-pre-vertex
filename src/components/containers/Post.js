@@ -23,7 +23,7 @@ class Post extends Component {
     }
     this.props
       .getRecord(id)
-      .then(() => {})
+      .then(record => {})
       .catch(err => {
         console.log(err);
       });
@@ -99,7 +99,11 @@ class Post extends Component {
         <div className="jumbotron">
           <h1 className="display-3">{post.title}</h1>
           <div className="row" style={{ marginBottom: '25px' }}>
-            <img className="img-fluid mx-auto" src={`${post.image}`} style={{ maxHeight: '400px' }} />
+            <img
+              className="img-fluid mx-auto"
+              src={`${post.image}`}
+              style={{ maxHeight: '400px' }}
+            />
           </div>
           <p className="lead">{post.text}</p>
           <hr className="my-4" />
@@ -123,7 +127,7 @@ class Post extends Component {
             </Link>
             <p style={{ marginTop: '10px' }}>{DateUtils.relativeTime(post.timestamp)}</p>
           </div>
-          {currentUser.id !== post.profile.id ? null : (
+          {currentUser == null ? null : currentUser.id !== post.profile.id ? null : (
             <div className="row justify-content-end">
               <div className="col-md-2">
                 <button

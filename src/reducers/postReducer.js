@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         [action.data.id]: action.data,
-        all: all.map(item => (item.id === action.data.id ? action.data : item))
+        all: state.all.map(item => (item.id === action.data.id ? action.data : item))
       };
 
     case constants.RECORD_DELETED:
