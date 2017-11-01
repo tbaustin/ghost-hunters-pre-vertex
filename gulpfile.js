@@ -8,6 +8,7 @@ var gp_uglify = require('gulp-uglify');
 var less = require('gulp-less');
 var to5 = require('gulp-6to5');
 var path = require('path');
+const babel = require('gulp-babel');
 
 gulp.task('less', function() {
   return gulp
@@ -47,7 +48,12 @@ gulp.task('style', ['css', 'copy-fonts'], function() {});
 
 gulp.task('js', function() {
   return gulp
-    .src(['./assets/js/jquery.js', './assets/js/plugins.js', './assets/js/functions.js', './assets/js/custom.js'])
+    .src([
+      './assets/js/jquery.js',
+      './assets/js/plugins.js',
+      './assets/js/functions.js',
+      './assets/js/custom.js'
+    ])
     .pipe(gp_concat('vendor.min.js'))
     .pipe(gulp.dest('./dist/js/'))
     .pipe(gp_rename('vendor.min.js'))
@@ -58,7 +64,11 @@ gulp.task('js', function() {
 gulp.task('es6-es5', ['js'], function() {
   return gulp
     .src(['./src/*/**.js', './src/*/*/**.js'])
-    .pipe(to5())
+    .pipe(
+      babel({
+        presets: ['env']
+      })
+    )
     .pipe(gulp.dest('./dist/es5/'));
 });
 
